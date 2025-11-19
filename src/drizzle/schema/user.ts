@@ -1,5 +1,7 @@
 import { pgTable, varchar } from "drizzle-orm/pg-core";
 import { createdAt, updatedAt } from "../schemahelpers";
+import { relations } from "drizzle-orm";
+import { JobInfoTable } from "./jobInfo";
 
 export const UserTable = pgTable("users", {
   id: varchar().primaryKey(),
@@ -9,3 +11,7 @@ export const UserTable = pgTable("users", {
   createdAt,
   updatedAt,
 });
+
+export const userRelations = relations(UserTable, ({ many }) => ({
+  jobInfos: many(JobInfoTable),
+}));
